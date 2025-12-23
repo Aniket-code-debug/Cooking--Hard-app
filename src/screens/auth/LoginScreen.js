@@ -118,12 +118,12 @@ const LoginScreen = ({ navigation }) => {
                 </View>
 
                 <View style={styles.footer}>
-                    <Text style={styles.footerText}>
-                        Don't have an account?{' '}
+                    <View style={styles.footerRow}>
+                        <Text style={styles.footerText}>Don't have an account? </Text>
                         <TouchableOpacity onPress={() => navigation.navigate('Register')}>
                             <Text style={styles.linkText}>Register</Text>
                         </TouchableOpacity>
-                    </Text>
+                    </View>
                 </View>
             </ScrollView>
         </KeyboardAvoidingView>
@@ -163,6 +163,10 @@ const styles = StyleSheet.create({
     footer: {
         alignItems: 'center',
         marginTop: 16,
+    },
+    footerRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     footerText: {
         color: COLORS.textSecondary,

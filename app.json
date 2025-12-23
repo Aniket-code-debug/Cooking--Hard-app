@@ -4,35 +4,12 @@
     "slug": "vyapix-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "dark",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#1C1C1E"
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
     "ios": {
       "bundleIdentifier": "com.vyapix.mobile",
-      "supportsTablet": true,
-      "infoPlist": {
-        "UIBackgroundModes": ["fetch"]
-      }
+      "supportsTablet": true
     },
     "android": {
-      "package": "com.vyapix.mobile",
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#1C1C1E"
-      },
-      "permissions": [
-        "INTERNET"
-      ]
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
+      "package": "com.vyapix.mobile"
     }
   }
 }

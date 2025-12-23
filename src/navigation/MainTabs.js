@@ -1,6 +1,8 @@
 import React from 'react';
+import { Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import DashboardScreen from '../screens/main/DashboardScreen';
+import InventoryScreen from '../screens/main/InventoryScreen';
 import { COLORS } from '../utils/constants';
 
 const Tab = createBottomTabNavigator();
@@ -23,6 +25,15 @@ const MainTabs = () => {
                 component={DashboardScreen}
                 options={{
                     tabBarLabel: 'Home',
+                    tabBarIcon: ({ color }) => <Text style={{ fontSize: 20 }}>🏠</Text>,
+                }}
+            />
+            <Tab.Screen
+                name="Inventory"
+                component={InventoryScreen}
+                options={{
+                    tabBarLabel: 'Inventory',
+                    tabBarIcon: ({ color }) => <Text style={{ fontSize: 20 }}>📦</Text>,
                 }}
             />
         </Tab.Navigator>

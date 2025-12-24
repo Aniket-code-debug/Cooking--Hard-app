@@ -1,47 +1,50 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { COLORS } from '../../utils/constants';
+import { View, Text, StyleSheet } from 'react-native';
 import { useAuth } from '../../context/AuthContext';
+import { useTheme } from '../../context/ThemeContext';
 import Button from '../../components/common/Button';
 
 const DashboardScreen = () => {
     const { user, logout } = useAuth();
-
-    const handleLogout = async () => {
-        try {
-            await logout();
-        } catch (error) {
-            console.error('Logout error:', error);
-        }
-    };
+    const { theme } = useTheme();
 
     return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.title}>Dashboard</Text>
-                <Text style={styles.subtitle}>Welcome, {user?.shopName || 'User'}!</Text>
-            </View>
+        <View style={[styles.container, { backgroundColor: theme.bgDark }]}>
+            <View style={[styles.content, { backgroundColor: theme.surfaceDark }]}>
+                <Text style={[styles.welcome, { color: theme.primary }]}>
+                    Welcome back!
+                </Text>
+                <Text style={[styles.shopName, { color: theme.text }]}>
+                    {user?.shopName || 'Shop Owner'}
+                </Text>
+                <Text style={[styles.email, { color: theme.textSecondary }]}>
+                    {user?.email}
+                </Text>
 
-            <View style={styles.content}>
-                <View style={styles.card}>
-                    <Text style={styles.cardTitle}>🏪 Shop Details</Text>
-                    <Text style={styles.cardText}>Shop: {user?.shopName}</Text>
-                    <Text style={styles.cardText}>Email: {user?.email}</Text>
-                </View>
-
-                <View style={styles.card}>
-                    <Text style={styles.cardTitle}>📱 Mobile App</Text>
-                    <Text style={styles.cardText}>
-                        This is your Vyapix mobile dashboard. Additional features will be added soon.
+                <View style={styles.menu}>
+                    <Text style={[styles.menuTitle, { color: theme.text }]}>
+                        Quick Actions
+                    </Text>
+                    <Text style={[styles.menuItem, { color: theme.textSecondary }]}>
+                        📦 Manage your inventory
+                    </Text>
+                    <Text style={[styles.menuItem, { color: theme.textSecondary }]}>
+                        🏭 Add suppliers
+                    </Text>
+                    <Text style={[styles.menuItem, { color: theme.textSecondary }]}>
+                        📥 Record purchases
+                    </Text>
+                    <Text style={[styles.menuItem, { color: theme.textSecondary }]}>
+                        💰 Make sales
+                    </Text>
+                    <Text style={[styles.menuItem, { color: theme.textSecondary }]}>
+                        ⚙️ Configure settings
                     </Text>
                 </View>
 
-                <Button
-                    title="Logout"
-                    onPress={handleLogout}
-                    variant="secondary"
-                    style={styles.logoutButton}
-                />
+                <Text style={[styles.hint, { color: theme.textSecondary }]}>
+                    Tap the ☰ menu button to navigate
+                </Text>
             </View>
         </View>
     );
@@ -50,46 +53,45 @@ const DashboardScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: COLORS.bgDark,
-    },
-    header: {
-        padding: 24,
-        paddingTop: 60,
-        backgroundColor: COLORS.surfaceDark,
-    },
-    title: {
-        fontSize: 32,
-        fontWeight: 'bold',
-        color: COLORS.primary,
-        marginBottom: 4,
-    },
-    subtitle: {
-        fontSize: 16,
-        color: COLORS.textSecondary,
+        padding: 20,
     },
     content: {
         flex: 1,
         padding: 24,
+        borderRadius: 12,
     },
-    card: {
-        backgroundColor: COLORS.surfaceElevated,
-        borderRadius: 16,
-        padding: 20,
-        marginBottom: 16,
+    welcome: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 8,
     },
-    cardTitle: {
+    shopName: {
+        fontSize: 32,
+        fontWeight: 'bold',
+        marginBottom: 8,
+    },
+    email: {
+        fontSize: 14,
+        marginBottom: 32,
+    },
+    menu: {
+        marginTop: 24,
+    },
+    menuTitle: {
         fontSize: 18,
         fontWeight: '600',
-        color: COLORS.text,
+        marginBottom: 16,
+    },
+    menuItem: {
+        fontSize: 16,
         marginBottom: 12,
+        paddingLeft: 8,
     },
-    cardText: {
+    hint: {
         fontSize: 14,
-        color: COLORS.textSecondary,
-        marginBottom: 4,
-    },
-    logoutButton: {
-        marginTop: 24,
+        textAlign: 'center',
+        marginTop: 'auto',
+        fontStyle: 'italic',
     },
 });
 

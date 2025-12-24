@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { useAuth } from '../context/AuthContext';
 import AuthStack from './AuthStack';
-import MainTabs from './MainTabs';
+import MainDrawer from './MainDrawer';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 
 const AppNavigator = () => {
@@ -14,7 +14,7 @@ const AppNavigator = () => {
 
     return (
         <NavigationContainer>
-            {isAuthenticated ? <MainTabs /> : <AuthStack />}
+            {isAuthenticated ? <MainDrawer /> : <AuthStack />}
         </NavigationContainer>
     );
 };

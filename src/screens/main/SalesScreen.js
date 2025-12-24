@@ -33,6 +33,7 @@ const SalesScreen = () => {
         quantity: '',
         customerName: '',
         customerPhone: '',
+        paymentMode: 'CASH', // Add payment mode
     });
     const [formErrors, setFormErrors] = useState({});
     const [saving, setSaving] = useState(false);
@@ -69,6 +70,7 @@ const SalesScreen = () => {
             quantity: '',
             customerName: '',
             customerPhone: '',
+            paymentMode: 'CASH',
         });
         setFormErrors({});
         setModalVisible(true);
@@ -103,18 +105,21 @@ const SalesScreen = () => {
                     amount,
                 }],
                 totalAmount: amount,
+                paymentMode: formData.paymentMode,
                 customerName: formData.customerName.trim() || undefined,
-                customerPhone: formData.customerPhone.trim() || undefined,
-                date: new Date().toISOString(),
             };
 
+            console.log('Creating sale with payload:', JSON.stringify(payload, null, 2));
             await createSale(payload);
             fetchData(); // Refresh all data
             Alert.alert('Success', 'Sale recorded successfully');
             setModalVisible(false);
         } catch (error) {
             console.error('Save error:', error);
-            Alert.alert('Error', error.response?.data?.error || 'Failed to save sale');
+            console.error('Error response:', error.response?.data);
+            console.error('Error status:', error.response?.status);
+            const errorMessage = error.response?.data?.message || error.response?.data?.error || error.message || 'Failed to save sale';
+            Alert.alert('Error', errorMessage);
         } finally {
             setSaving(false);
         }
@@ -211,6 +216,21 @@ const SalesScreen = () => {
                                 ))}
                             </ScrollView>
                             {formErrors.productId && <Text style={styles.errorText}>{formErrors.productId}</Text>}
+
+                            <Text style={styles.fieldLabel}>Payment Mode *</Text>
+                            <ScrollView horizontal style={styles.optionsScroll}>
+                                {['CASH', 'ONLINE', 'UPI', 'CARD'].map(mode => (
+                                    <Pressable
+                                        key={mode}
+                                        style={[styles.optionChip, formData.paymentMode === mode && styles.optionChipSelected]}
+                                        onPress={() => setFormData({ ...formData, paymentMode: mode })}
+                                    >
+                                        <Text style={[styles.optionText, formData.paymentMode === mode && styles.optionTextSelected]}>
+                                            {mode}
+                                        </Text>
+                                    </Pressable>
+                                ))}
+                            </ScrollView>
 
                             <Input
                                 label="Quantity *"
